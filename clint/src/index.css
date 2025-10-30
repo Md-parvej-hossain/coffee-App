@@ -1,4 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
 @import 'tailwindcss';
 @plugin "daisyui" {
   themes: light --default;
+ 
+}
+
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+ --color-primary: #e3b577;
+
+
+}
+
+* {
+  font-family: 'Raleway', sans-serif;
 }
