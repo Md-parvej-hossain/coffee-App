@@ -1,10 +1,20 @@
-import { Link } from 'react-router';
+import { Link, useLoaderData } from 'react-router';
 import Swal from 'sweetalert2';
-const AddCoffee = () => {
+
+const CoffeeUpdate = () => {
+  const data = useLoaderData();
+  const { _id, name, price, supplier, taste, category, details, photo } = data;
+  console.log(data);
   const handleAddCoffee = e => {
     e.preventDefault();
     const form = e.target;
 
+    //big from control //way 1
+    // const formData = new FormData(form);
+    // const coffeeData = Object.fromEntries(formData.entries());
+    // console.log(coffeeData);
+
+    //way 2
     const newCoffee = {
       name: form.name.value,
       price: form.price.value,
@@ -14,8 +24,9 @@ const AddCoffee = () => {
       details: form.details.value,
       photo: form.photo.value,
     };
-    fetch('http://localhost:5000/coffes', {
-      method: 'POST',
+    //send coffee data update the server
+    fetch(`http://localhost:5000/coffes/${_id}`, {
+      method: 'PUT',
       headers: {
         'content-type': 'application/json',
       },
@@ -23,15 +34,29 @@ const AddCoffee = () => {
     })
       .then(res => res.json())
       .then(data => {
-        if (data.insertedId) {
+        if (data.modifiedCount) {
+          let timerInterval;
           Swal.fire({
-            position: 'top-center',
-            icon: 'success',
-            title: 'Coffee Added success',
-            showConfirmButton: false,
-            timer: 1500,
+            title: 'Auto close alert!',
+            html: 'I will close in <b></b> milliseconds.',
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading();
+              const timer = Swal.getPopup().querySelector('b');
+              timerInterval = setInterval(() => {
+                timer.textContent = `${Swal.getTimerLeft()}`;
+              }, 100);
+            },
+            willClose: () => {
+              clearInterval(timerInterval);
+            },
+          }).then(result => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              console.log('I was closed by the timer');
+            }
           });
-          form.reset();
         }
       });
     console.log(newCoffee);
@@ -49,13 +74,13 @@ const AddCoffee = () => {
         </Link>
 
         <h2 className="text-3xl font-bold text-center mt-4 mb-2 text-gray-700">
-          Add New Coffee
+          Update Existing Coffee Details
         </h2>
         <p className="text-center text-gray-500 mb-8">
-          It is a long established fact that a reader will be distracted by the
+          It is a long established fact that a reader will be distraceted by the
           readable content of a page when looking at its layout. The point of
           using Lorem Ipsum is that it has a more-or-less normal distribution of
-          letters.
+          letters, as opposed to using Content here.
         </p>
 
         <form onSubmit={handleAddCoffee}>
@@ -69,20 +94,22 @@ const AddCoffee = () => {
                 name="name"
                 placeholder="Enter coffee name"
                 className="input input-bordered w-full"
+                defaultValue={name}
                 required
               />
             </div>
 
             <div>
               <label className="label">
-                <span className="label-text">price</span>
+                <span className="label-text">Price</span>
               </label>
               <input
                 type="number"
                 name="price"
-                placeholder="Enter coffee Price"
+                placeholder="Enter coffee chef"
                 className="input input-bordered w-full"
                 required
+                defaultValue={price}
               />
             </div>
 
@@ -96,6 +123,7 @@ const AddCoffee = () => {
                 placeholder="Enter coffee supplier"
                 className="input input-bordered w-full"
                 required
+                defaultValue={supplier}
               />
             </div>
 
@@ -109,6 +137,7 @@ const AddCoffee = () => {
                 placeholder="Enter coffee taste"
                 className="input input-bordered w-full"
                 required
+                defaultValue={taste}
               />
             </div>
 
@@ -122,6 +151,7 @@ const AddCoffee = () => {
                 placeholder="Enter coffee category"
                 className="input input-bordered w-full"
                 required
+                defaultValue={category}
               />
             </div>
 
@@ -135,6 +165,7 @@ const AddCoffee = () => {
                 placeholder="Enter coffee details"
                 className="input input-bordered w-full"
                 required
+                defaultValue={details}
               />
             </div>
           </div>
@@ -149,12 +180,13 @@ const AddCoffee = () => {
               placeholder="Enter photo URL"
               className="input input-bordered w-full"
               required
+              defaultValue={photo}
             />
           </div>
 
           <div className="mt-8">
             <button className="btn btn-block bg-[#D2B48C] hover:bg-[#c2a377] border-none text-gray-800">
-              Add Coffee
+              Update Coffee Details
             </button>
           </div>
         </form>
@@ -163,4 +195,4 @@ const AddCoffee = () => {
   );
 };
 
-export default AddCoffee;
+export default CoffeeUpdate;

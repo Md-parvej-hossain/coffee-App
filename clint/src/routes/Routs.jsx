@@ -4,7 +4,8 @@ import Error from '../components/error/Error';
 import Home from '../pages/Home';
 import AddCoffee from '../components/addcoffee/AddCoffee';
 import DeleteCoffee from '../components/deletecoffee/DeleteCoffee';
-import UpdateCoffee from '../components/updatecoffee/UpdateCoffee';
+import CoffeeUpdate from '../components/coffeeUpdate/CoffeeUpdate';
+import CoffeeDetals from '../components/coffeeDetals/CoffeeDetals';
 
 export const router = createBrowserRouter([
   {
@@ -24,9 +25,18 @@ export const router = createBrowserRouter([
         path: 'deletCoffee',
         Component: DeleteCoffee,
       },
+
       {
-        path: 'updateCoffee',
-        Component: UpdateCoffee,
+        path: 'coffeeUpdate/:id',
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/coffes/${params.id}`),
+        element: <CoffeeUpdate></CoffeeUpdate>,
+      },
+      {
+        path: 'coffeeDetals/:id',
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/coffes/${params.id}`),
+        element: <CoffeeDetals></CoffeeDetals>,
       },
     ],
   },

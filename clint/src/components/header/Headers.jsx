@@ -11,8 +11,8 @@ const Navbar = () => {
         style={{ backgroundImage: `url(${banner})` }}
       >
         <div className=" w-6/12  text-white space-y-4 px-8 mx-10 ">
-          <h1 className='text-4xl'>Would you like a Cup of Delicious Coffee?</h1>
-          <p className='text-lg'>
+          <h1 className='text-5xl'>Would you like a Cup of Delicious Coffee?</h1>
+          <p className='text-xl'>
             It's coffee time - Sip & Savor - Relaxation in every sip! Get the
             nostalgia back!! Your companion of every moment!!! Enjoy the
             beautiful moments and make them memorable.

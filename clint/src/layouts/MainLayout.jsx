@@ -15,8 +15,8 @@ const MainLayout = () => {
           <h1 className="text-4xl">Espresso Emporium</h1>
         </div>
       </div>
-
-      <div>
+      
+      <div className="min-h-[calc(100vh-130px)]">
         <Outlet></Outlet>
       </div>
 

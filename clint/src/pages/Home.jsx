@@ -1,11 +1,14 @@
+import AllCoffee from '../components/allCoffee/AllCoffee';
 import Headers from '../components/header/Headers';
+import NiceCoffee from '../components/niceCoffee/NiceCoffee';
 
 const Home = () => {
   return (
     <div>
       <Headers></Headers>
-      <h1>This is a home pages</h1>
-      {/* <AddCoffee></AddCoffee> */}
+      
+      <AllCoffee></AllCoffee>
+      <NiceCoffee></NiceCoffee>
     </div>
   );
 };
