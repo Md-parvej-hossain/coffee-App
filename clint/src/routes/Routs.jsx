@@ -6,6 +6,8 @@ import AddCoffee from '../components/addcoffee/AddCoffee';
 import DeleteCoffee from '../components/deletecoffee/DeleteCoffee';
 import CoffeeUpdate from '../components/coffeeUpdate/CoffeeUpdate';
 import CoffeeDetals from '../components/coffeeDetals/CoffeeDetals';
+import Login from '../components/login/Login';
+import Register from '../components/register/Register';
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +39,14 @@ export const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`http://localhost:5000/coffes/${params.id}`),
         element: <CoffeeDetals></CoffeeDetals>,
+      },
+      {
+        path: 'login',
+        element: <Login></Login>,
+      },
+      {
+        path: 'register',
+        element: <Register></Register>,
       },
     ],
   },

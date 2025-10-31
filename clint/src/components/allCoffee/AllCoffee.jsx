@@ -4,13 +4,13 @@ import { MdDelete } from 'react-icons/md';
 import { FaEye } from 'react-icons/fa';
 import p1 from '../../assets/more/1.png';
 import { Link } from 'react-router';
-import { use } from 'react';
+import { use, useState } from 'react';
 import Swal from 'sweetalert2';
 const promice = fetch('http://localhost:5000/coffes').then(res => res.json());
 const AllCoffee = () => {
   const coffees = use(promice);
   console.log(coffees);
-
+  const [coffData, setCoffeeData] = useState(coffees);
   const handaleDelate = _id => {
     console.log('handale delate');
     console.log(_id);
@@ -36,6 +36,9 @@ const AllCoffee = () => {
                 text: 'Your Coffee has been deleted.',
                 icon: 'success',
               });
+              //remove the coffee form the state
+              const renamingCoffes = coffData.filter(cof => cof._id !== _id);
+              setCoffeeData(renamingCoffes);
             }
           });
       }
@@ -61,7 +64,7 @@ const AllCoffee = () => {
       </div>
 
       <div className="grid grid-cols-2 gap-5 my-10 w-10/12  mx-auto">
-        {coffees.map(coffee => (
+        {coffData.map(coffee => (
           <div
             key={coffee._id}
             className="flex justify-between items-center bg-[#F5F4F1] px-10 py-5"
