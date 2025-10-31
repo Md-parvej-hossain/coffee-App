@@ -12,7 +12,7 @@ const Register = () => {
     const registerUser = Object.fromEntries(formData.entries());
     console.log(registerUser);
     const { email, password, ...restFormData } = registerUser;
-    
+
     // const userProfail = {
     //   email,
     //   ...restFormData,
@@ -35,13 +35,16 @@ const Register = () => {
         };
 
         //saa profail info in db
-        fetch(`http://localhost:5000/users`, {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-          },
-          body: JSON.stringify(userProfail),
-        })
+        fetch(
+          `https://server-afpaqt6g0-habibes-projects-f154a520.vercel.app/users`,
+          {
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json',
+            },
+            body: JSON.stringify(userProfail),
+          }
+        )
           .then(res => res.json())
           .then(data => {
             if (data.insertedId) {

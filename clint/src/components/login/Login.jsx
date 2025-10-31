@@ -17,13 +17,16 @@ const Login = () => {
           email,
           lastSignInTime: user?.metadata?.lastSignInTime,
         };
-        fetch('http://localhost:5000/users', {
-          method: 'PATCH',
-          headers: {
-            'content-type': 'application/json',
-          },
-          body: JSON.stringify(userInfo),
-        })
+        fetch(
+          'https://server-afpaqt6g0-habibes-projects-f154a520.vercel.app/users',
+          {
+            method: 'PATCH',
+            headers: {
+              'content-type': 'application/json',
+            },
+            body: JSON.stringify(userInfo),
+          }
+        )
           .then(res => res.json())
           .then(data => {
             console.log(data);

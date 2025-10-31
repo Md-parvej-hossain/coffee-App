@@ -6,7 +6,9 @@ import p1 from '../../assets/more/1.png';
 import { Link } from 'react-router';
 import { use, useState } from 'react';
 import Swal from 'sweetalert2';
-const promice = fetch('http://localhost:5000/coffes').then(res => res.json());
+const promice = fetch(
+  'https://server-afpaqt6g0-habibes-projects-f154a520.vercel.app/coffes'
+).then(res => res.json());
 const AllCoffee = () => {
   const coffees = use(promice);
   console.log(coffees);
@@ -25,9 +27,12 @@ const AllCoffee = () => {
     }).then(result => {
       if (result.isConfirmed) {
         //deleate coffee
-        fetch(`http://localhost:5000/coffes/${_id}`, {
-          method: 'DELETE',
-        })
+        fetch(
+          `https://server-afpaqt6g0-habibes-projects-f154a520.vercel.app/coffes/${_id}`,
+          {
+            method: 'DELETE',
+          }
+        )
           .then(res => res.json())
           .then(data => {
             if (data.deletedCount) {

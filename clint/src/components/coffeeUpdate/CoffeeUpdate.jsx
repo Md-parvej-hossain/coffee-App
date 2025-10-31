@@ -25,13 +25,16 @@ const CoffeeUpdate = () => {
       photo: form.photo.value,
     };
     //send coffee data update the server
-    fetch(`http://localhost:5000/coffes/${_id}`, {
-      method: 'PUT',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(newCoffee),
-    })
+    fetch(
+      `https://server-afpaqt6g0-habibes-projects-f154a520.vercel.app/coffes/${_id}`,
+      {
+        method: 'PUT',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(newCoffee),
+      }
+    )
       .then(res => res.json())
       .then(data => {
         if (data.modifiedCount) {
