@@ -45,6 +45,7 @@ async function run() {
       res.send(result);
     });
     //coffee update
+    //multipul data update then use put
     app.put('/coffes/:id', async (req, res) => {
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) };
@@ -85,6 +86,20 @@ async function run() {
       const result = await usersCollection.insertOne(userProfail);
       res.send(result);
     });
+    //singal data update then use patch
+    app.patch('/users', async (req, res) => {
+      const { email, lastSignInTime } = req.body;
+      const data = req.body;
+      console.log(data);
+      const filter = { email: email };
+      const updatedDoc = {
+        $set: {
+          lastSignInTime: lastSignInTime,
+        },
+      };
+      const result = await usersCollection.updateOne(filter, updatedDoc);
+      res.send(result);
+    });
 
     //get user
     app.get('/users', async (req, res) => {
@@ -92,13 +107,13 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
-    //delet user 
+    //delet user
     app.delete('/users/:id', async (req, res) => {
       const id = req.params.id;
-      const query ={_id: new ObjectId(id)}
+      const query = { _id: new ObjectId(id) };
       const result = await usersCollection.deleteOne(query);
-      res.send(result)
-    })
+      res.send(result);
+    });
 
     await client.db('admin').command({ ping: 1 });
     console.log(
