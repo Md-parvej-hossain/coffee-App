@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router';
-
+import SubNav from '../components/subNav/SubNav';
 import Footer from '../components/footer/Footer';
 import topimg from '../assets/more/15.jpg';
 import logo1 from '../assets/more/logo1.png';
@@ -15,7 +15,7 @@ const MainLayout = () => {
           <h1 className="text-4xl">Espresso Emporium</h1>
         </div>
       </div>
-      
+      <SubNav></SubNav>
       <div className="min-h-[calc(100vh-130px)]">
         <Outlet></Outlet>
       </div>

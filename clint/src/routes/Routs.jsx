@@ -8,6 +8,7 @@ import CoffeeUpdate from '../components/coffeeUpdate/CoffeeUpdate';
 import CoffeeDetals from '../components/coffeeDetals/CoffeeDetals';
 import Login from '../components/login/Login';
 import Register from '../components/register/Register';
+import Users from '../components/users/Users';
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +48,11 @@ export const router = createBrowserRouter([
       {
         path: 'register',
         element: <Register></Register>,
+      },
+      {
+        path: 'users',
+        loader: () => fetch('http://localhost:5000/users'),
+        element: <Users></Users>,
       },
     ],
   },

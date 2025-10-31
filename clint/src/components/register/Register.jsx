@@ -1,14 +1,23 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router';
 import { AuthContext } from '../../firebase/AuthProvider';
+import Swal from 'sweetalert2';
 const Register = () => {
   const { creatNewUser } = useContext(AuthContext);
   const handaleRegister = e => {
     e.preventDefault();
+    //way 1
     const form = e.target;
     const formData = new FormData(form);
     const registerUser = Object.fromEntries(formData.entries());
-    const { email, password } = registerUser;
+    console.log(registerUser);
+    const { email, password, ...restFormData } = registerUser;
+    
+    // const userProfail = {
+    //   email,
+    //   ...restFormData,
+    // };
+
     // way 2
     // const email =formData.get('email')
     // const pass =formData.get('password')
@@ -17,9 +26,36 @@ const Register = () => {
       .then(userCredential => {
         const user = userCredential.user;
         console.log(user);
+
+        const userProfail = {
+          email,
+          ...restFormData,
+          creationTime: userCredential.user.metadata.creationTime,
+          lastSignInTime: userCredential.user.metadata.lastSignInTime,
+        };
+
+        //saa profail info in db
+        fetch(`http://localhost:5000/users`, {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify(userProfail),
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.insertedId) {
+              Swal.fire({
+                position: 'top-center',
+                icon: 'success',
+                title: 'Your work has been saved',
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          });
       })
       .catch(error => {
-        const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
       });
@@ -49,6 +85,30 @@ const Register = () => {
               name="name"
               id="name"
               placeholder="Enter a Name"
+              className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800"
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className="block mb-2 text-sm">
+              Phone
+            </label>
+            <input
+              type="number"
+              name="phone"
+              id="phone"
+              placeholder="Enter your Phone Number"
+              className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800"
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className="block mb-2 text-sm">
+              Address
+            </label>
+            <input
+              type="text"
+              name="address"
+              id="address"
+              placeholder="Enter your Address "
               className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800"
             />
           </div>

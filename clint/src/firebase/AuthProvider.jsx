@@ -5,6 +5,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signOut,
 } from 'firebase/auth';
 import { auth } from './firebase.config';
 // eslint-disable-next-line react-refresh/only-export-components
@@ -26,10 +27,17 @@ const AuthProvider = ({ children }) => {
   const googleLogin = () => {
     return signInWithPopup(auth, provider);
   };
+  //sign out
+  const signOutUser = () => {
+    return signOut(auth);
+  };
+
   const authData = {
     creatNewUser,
     logInUser,
     googleLogin,
+    signOutUser,
+    user,
   };
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {

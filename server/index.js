@@ -1,4 +1,5 @@
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -21,6 +22,7 @@ async function run() {
   try {
     await client.connect();
     const coffeesCollection = client.db('coffeesDB').collection('coffes');
+    const usersCollection = client.db('coffeesDB').collection('users');
 
     //get coffes data bd
     app.get('/coffes', async (req, res) => {
@@ -75,6 +77,28 @@ async function run() {
       console.log(id);
       res.send(result);
     });
+
+    //user relatade api
+    app.post('/users', async (req, res) => {
+      const userProfail = req.body;
+      console.log(userProfail);
+      const result = await usersCollection.insertOne(userProfail);
+      res.send(result);
+    });
+
+    //get user
+    app.get('/users', async (req, res) => {
+      const cursor = usersCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+    //delet user 
+    app.delete('/users/:id', async (req, res) => {
+      const id = req.params.id;
+      const query ={_id: new ObjectId(id)}
+      const result = await usersCollection.deleteOne(query);
+      res.send(result)
+    })
 
     await client.db('admin').command({ ping: 1 });
     console.log(
