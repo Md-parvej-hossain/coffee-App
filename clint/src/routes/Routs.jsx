@@ -32,17 +32,13 @@ export const router = createBrowserRouter([
       {
         path: 'coffeeUpdate/:id',
         loader: ({ params }) =>
-          fetch(
-            `https://server-afpaqt6g0-habibes-projects-f154a520.vercel.app/coffes/${params.id}`
-          ),
+          fetch(`https://server-xi-woad-21.vercel.app/coffes/${params.id}`),
         element: <CoffeeUpdate></CoffeeUpdate>,
       },
       {
         path: 'coffeeDetals/:id',
         loader: ({ params }) =>
-          fetch(
-            `https://server-afpaqt6g0-habibes-projects-f154a520.vercel.app/coffes/${params.id}`
-          ),
+          fetch(`https://server-xi-woad-21.vercel.app/coffes/${params.id}`),
         element: <CoffeeDetals></CoffeeDetals>,
       },
       {
@@ -55,10 +51,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'users',
-        loader: () =>
-          fetch(
-            'https://server-afpaqt6g0-habibes-projects-f154a520.vercel.app/users'
-          ),
+        loader: () => fetch('https://server-xi-woad-21.vercel.app/users'),
         element: <Users></Users>,
       },
     ],

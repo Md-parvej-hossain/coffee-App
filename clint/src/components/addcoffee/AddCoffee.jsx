@@ -14,16 +14,13 @@ const AddCoffee = () => {
       details: form.details.value,
       photo: form.photo.value,
     };
-    fetch(
-      'https://server-afpaqt6g0-habibes-projects-f154a520.vercel.app/coffes',
-      {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(newCoffee),
-      }
-    )
+    fetch('https://server-xi-woad-21.vercel.app/coffes', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(newCoffee),
+    })
       .then(res => res.json())
       .then(data => {
         if (data.insertedId) {
